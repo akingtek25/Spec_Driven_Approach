@@ -42,6 +42,15 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias,
     },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './vitest.setup.ts',
+      include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+      coverage: {
+        reporter: ['text', 'lcov'],
+      },
+    },
     server: {
       port: 5173,
       open: true, // Auto open browser for smoother DX

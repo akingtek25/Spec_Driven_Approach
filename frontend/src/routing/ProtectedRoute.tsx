@@ -1,5 +1,6 @@
 import { type ReactNode, useEffect } from 'react';
 import { useAuth } from '@/auth/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AUTH_BYPASS = import.meta.env.VITE_AUTH_BYPASS === 'true';
 
@@ -8,13 +9,17 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated, login, loading } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (AUTH_BYPASS) return; // skip real login
-    if (!isAuthenticated && !loading) void login();
-  }, [isAuthenticated, loading, login]);
-  if (!isAuthenticated && !AUTH_BYPASS) return <div style={{ padding: 16 }}>Authenticating...</div>;
+    if (AUTH_BYPASS) return;
+    if (!isAuthenticated && !loading) {
+      navigate('/login', { replace: true, state: { from: location.pathname } });
+    }
+  }, [isAuthenticated, loading, navigate, location]);
+  if (!isAuthenticated && !AUTH_BYPASS) return null; // navigation happening
   return <>{children}</>;
 };
 

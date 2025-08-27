@@ -1,10 +1,12 @@
 import { Button, Title1, Caption1 } from '@fluentui/react-components';
 import { useAuth } from '@/auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const AUTH_BYPASS = import.meta.env.VITE_AUTH_BYPASS === 'true';
 
 const Home = () => {
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   return (
     <div>
       <Title1>Welcome</Title1>
@@ -13,7 +15,7 @@ const Home = () => {
         <Caption1 color="brand">Auth bypass is ENABLED (VITE_AUTH_BYPASS=true). Real sign-in disabled.</Caption1>
       )}
       {!isAuthenticated && !AUTH_BYPASS && (
-        <Button appearance="primary" onClick={() => void login()}>
+        <Button appearance="primary" onClick={() => navigate('/login')}>
           Sign In
         </Button>
       )}
