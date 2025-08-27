@@ -7,8 +7,10 @@ const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('@/pages/Login/Login'));
 
 const routes: RouteObject[] = [
-  { path: '/', element: <Home /> },
+  // Serve login at root to greet user first
+  { path: '/', element: <Login /> },
   { path: '/login', element: <Login /> },
+  { path: '/home', element: <Home /> },
   {
     path: '/dashboard',
     element: (

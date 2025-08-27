@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import {
   Button,
   Title1,
@@ -43,22 +43,30 @@ const useStyles = makeStyles({
 
 const Login = () => {
   const styles = useStyles();
-  const { login, loading, isAuthenticated } = useAuth();
+  const { login, loading, isAuthenticated, isBypass, devExpectedEmail, devExpectedPassword } = useAuth();
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  if (isAuthenticated) {
-    // If already authenticated (including bypass), send user to dashboard.
-    navigate('/dashboard');
-  }
+  // Redirect any already-authenticated user away from login (avoid navigation during render)
+  useEffect(() => {
+    if (isAuthenticated) navigate('/dashboard');
+  }, [isAuthenticated, navigate]);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (AUTH_BYPASS) {
-      // No-op; bypass means user is considered logged in globally.
-      navigate('/dashboard');
+    setError(null);
+    if (isBypass) {
+      const result = await login(email.trim(), password);
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        setError(result.error || 'Login failed');
+      }
       return;
     }
-    void login();
+    void login(); // real MSAL
   };
 
   return (
@@ -73,25 +81,65 @@ const Login = () => {
       <form onSubmit={handleSubmit} noValidate>
         <div className={styles.field}>
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="you@example.com" required disabled={!AUTH_BYPASS} />
+          <Input
+            id="email"
+            type="email"
+            placeholder={devExpectedEmail || 'you@example.com'}
+            required
+            value={email}
+            onChange={(_, v) => setEmail(v.value)}
+            disabled={!isBypass}
+          />
         </div>
         <div className={styles.field}>
           <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" placeholder="Password" required disabled={!AUTH_BYPASS} />
+            <Input
+              id="password"
+              type="password"
+              placeholder={devExpectedPassword || 'Password'}
+              required
+              value={password}
+              onChange={(_, v) => setPassword(v.value)}
+              disabled={!isBypass}
+            />
         </div>
         <div className={styles.actions}>
           <Button type="submit" appearance="primary" disabled={loading}>
-            {loading ? 'Signing in...' : 'Login'}
+            {loading ? 'Signing in…' : 'Login'}
           </Button>
+          {/* Microsoft account sign-in button (MSAL) */}
           <Button
             type="button"
             appearance="secondary"
             onClick={() => void login()}
             disabled={loading}
+            aria-label="Sign in with Microsoft account"
           >
-            Sign in with Microsoft
+            {/* Inline SVG Microsoft logo (4-square) following brand colors */}
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <span
+                aria-hidden="true"
+                style={{
+                  width: 16,
+                  height: 16,
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gridTemplateRows: 'repeat(2, 1fr)',
+                  gap: 2,
+                }}
+              >
+                <span style={{ background: '#F25022' }} />
+                <span style={{ background: '#7FBA00' }} />
+                <span style={{ background: '#00A4EF' }} />
+                <span style={{ background: '#FFB900' }} />
+              </span>
+              <span>Sign in with Microsoft</span>
+            </span>
           </Button>
         </div>
+        {error && (
+          <Caption1 style={{ color: tokens.colorPaletteRedForeground3 }}>{error}</Caption1>
+        )}
         <div className={styles.links}>
           <FluentLink href="#">Forgot Password?</FluentLink>
           <FluentLink href="#">Sign Up</FluentLink>

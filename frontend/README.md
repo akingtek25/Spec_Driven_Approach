@@ -45,12 +45,12 @@ Open http://localhost:5173.
 `PublicClientApplication` is configured in `auth/authConfig.ts`. The app wraps with `MsalProvider`. `useAuth()` exposes `login`, `logout`, `user`, `isAuthenticated`, `loading` and supports a development bypass.
 
 ### Dev Auth Bypass
-Set `VITE_AUTH_BYPASS=true` in `.env` to skip MSAL entirely. The app will behave as if a mock user is authenticated; the Login page becomes decorative.
+Set `VITE_AUTH_BYPASS=true` in `.env` to enable a local credential-based mock login (no Azure AD network calls). Provide `VITE_DEV_LOGIN_EMAIL` & `VITE_DEV_LOGIN_PASSWORD` to define the accepted credentials. Until you submit the correct pair on the Login page you are considered unauthenticated.
 
 ### Login Page
 Located at `pages/Login/Login.tsx`:
  - Modern Fluent UI card layout
- - Email & password (disabled unless bypass on, since real auth is Microsoft sign-in)
+ - Email & password (active only in bypass mode)
  - Primary Login button (form submit / no-op under real MSAL; triggers navigate under bypass)
  - Secondary "Sign in with Microsoft" button invoking `login()`
  - Links: Forgot Password? / Sign Up (placeholders)

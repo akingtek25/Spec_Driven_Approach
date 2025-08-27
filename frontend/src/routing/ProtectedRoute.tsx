@@ -9,17 +9,16 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, isBypass } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (AUTH_BYPASS) return;
     if (!isAuthenticated && !loading) {
       navigate('/login', { replace: true, state: { from: location.pathname } });
     }
   }, [isAuthenticated, loading, navigate, location]);
-  if (!isAuthenticated && !AUTH_BYPASS) return null; // navigation happening
+  if (!isAuthenticated) return null; // avoid flashing children while redirecting
   return <>{children}</>;
 };
 
