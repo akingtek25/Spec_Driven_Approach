@@ -23,9 +23,12 @@ const AppLayout = ({ children }: PropsWithChildren) => {
   const { isAuthenticated, user, login, logout, loading } = useAuth();
   const { pathname } = useLocation();
 
+  const hideToolbar = pathname === '/' || pathname.startsWith('/login');
+
   return (
     <div className={styles.root}>
-      <Toolbar className={styles.toolbar}>
+      {!hideToolbar && (
+        <Toolbar className={styles.toolbar}>
         <Link to="/" className={styles.navLink + (pathname === '/' ? ' ' + styles.active : '')}>
           Home
         </Link>
@@ -50,7 +53,8 @@ const AppLayout = ({ children }: PropsWithChildren) => {
             Sign In
           </Button>
         )}
-      </Toolbar>
+        </Toolbar>
+      )}
       <main className={styles.main}>{children}</main>
     </div>
   );
