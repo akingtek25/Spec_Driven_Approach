@@ -1,15 +1,18 @@
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 
-import routes from '@/routing/routes';
+import { NavigationProvider } from '@/context/NavigationContext';
 import AppLayout from '@/layout/AppLayout';
+import routes from '@/routing/routes';
 
 function App() {
   const element = useRoutes(routes);
   return (
-    <AppLayout>
-      <Suspense fallback={<div style={{ padding: 16 }}>Loading...</div>}>{element}</Suspense>
-    </AppLayout>
+    <NavigationProvider>
+      <AppLayout>
+        <Suspense fallback={<div style={{ padding: 16 }}>Loading...</div>}>{element}</Suspense>
+      </AppLayout>
+    </NavigationProvider>
   );
 }
 

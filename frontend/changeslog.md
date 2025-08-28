@@ -1,21 +1,22 @@
 # Frontend Change Log
 
-| Date | Developer | Change | Details |
-|------|-----------|--------|---------|
-| 2025-08-26 | Aaron King | Scaffold | Initial project scaffold (package.json, tsconfigs, vite config, ESLint/Prettier, env example, auth, routing, theme, layout, pages, hooks, services) |
-| 2025-08-26 | Aaron King | Fix | Downgraded ESLint to 8.57.0 to satisfy @typescript-eslint peer dependency |
-| 2025-08-26 | Aaron King | Fix | Resolved TypeScript errors (vite env types, style units, brand ramp completion, AppButton props type) |
-| 2025-08-26 | Aaron King | Enhancement | Expanded Vite config (aliases sync, env loading, server/build opts, dep optimization) and added @types/node |
-| 2025-08-27 | Aaron King | Feature | Added temporary auth bypass (VITE_AUTH_BYPASS flag) to allow running UI without MSAL setup |
-| 2025-08-27 | Aaron King | Fix | Added missing index.html and public/vite.svg so Vite dev server serves SPA (resolved 404 on /) |
-| 2025-08-27 | Aaron King | Feature | Implemented Login page (modern Fluent UI form, Microsoft sign-in button), routing update (/login), ProtectedRoute redirect logic, vitest + Testing Library setup, initial tests |
-| 2025-08-27 | Aaron King | Enhancement | Added credential-based mock login in bypass mode (VITE_AUTH_BYPASS) with env-configurable dev email/password, updated ProtectedRoute & docs |
+| Date       | Developer  | Change      | Details                                                                                                                                                                                               |
+| ---------- | ---------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2025-08-28 | Aaron King | Feature     | Implemented collapsible navigation sidebar with smooth animations, responsive design, Fluent UI integration, and extensible structure for future pages. Added NavigationContext for state management.|
+| 2025-08-26 | Aaron King | Scaffold    | Initial project scaffold (package.json, tsconfigs, vite config, ESLint/Prettier, env example, auth, routing, theme, layout, pages, hooks, services)                                                   |
+| 2025-08-26 | Aaron King | Fix         | Downgraded ESLint to 8.57.0 to satisfy @typescript-eslint peer dependency                                                                                                                             |
+| 2025-08-26 | Aaron King | Fix         | Resolved TypeScript errors (vite env types, style units, brand ramp completion, AppButton props type)                                                                                                 |
+| 2025-08-26 | Aaron King | Enhancement | Expanded Vite config (aliases sync, env loading, server/build opts, dep optimization) and added @types/node                                                                                           |
+| 2025-08-27 | Aaron King | Feature     | Added temporary auth bypass (VITE_AUTH_BYPASS flag) to allow running UI without MSAL setup                                                                                                            |
+| 2025-08-27 | Aaron King | Fix         | Added missing index.html and public/vite.svg so Vite dev server serves SPA (resolved 404 on /)                                                                                                        |
+| 2025-08-27 | Aaron King | Feature     | Implemented Login page (modern Fluent UI form, Microsoft sign-in button), routing update (/login), ProtectedRoute redirect logic, vitest + Testing Library setup, initial tests                       |
+| 2025-08-27 | Aaron King | Enhancement | Added credential-based mock login in bypass mode (VITE_AUTH_BYPASS) with env-configurable dev email/password, updated ProtectedRoute & docs                                                           |
 | 2025-08-27 | Aaron King | Enhancement | Updated login to redirect via effect when already authenticated, added branded Microsoft sign-in button with logo, simplified ProtectedRoute logic, set '/' to serve Login first, moved Home to /home |
-| 2025-08-27 | Aaron King | Fix | Shared singleton dev auth state so bypass login persists across components; enhanced Dashboard with badges/environment card |
-| 2025-08-27 | Aaron King | Enhancement | Updated Login page: toolbar hidden on login routes, removed extra buttons/links, added SVG logo and new header text, refined styling tokens |
-| 2025-08-27 | Aaron King | Refactor | Removed credential form; Login now presents only Microsoft (MSAL) sign-in button; updated tests |
-| 2025-08-27 | Aaron King | Enhancement | In auth bypass mode, removed MSAL button and display simple bypass message; updated test logic |
-| 2025-08-27 | Aaron King | Fix | Restored access: added explicit bypass login button (auto dev creds) while retaining Microsoft sign-in when not bypassing; updated test |
+| 2025-08-27 | Aaron King | Fix         | Shared singleton dev auth state so bypass login persists across components; enhanced Dashboard with badges/environment card                                                                           |
+| 2025-08-27 | Aaron King | Enhancement | Updated Login page: toolbar hidden on login routes, removed extra buttons/links, added SVG logo and new header text, refined styling tokens                                                           |
+| 2025-08-27 | Aaron King | Refactor    | Removed credential form; Login now presents only Microsoft (MSAL) sign-in button; updated tests                                                                                                       |
+| 2025-08-27 | Aaron King | Enhancement | In auth bypass mode, removed MSAL button and display simple bypass message; updated test logic                                                                                                        |
+| 2025-08-27 | Aaron King | Fix         | Restored access: added explicit bypass login button (auto dev creds) while retaining Microsoft sign-in when not bypassing; updated test                                                               |
 
 Generated by AI as directed by Aaron King on 2025-08-26
 Generated by AI as directed by Aaron King on 2025-08-27

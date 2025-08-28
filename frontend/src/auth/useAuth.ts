@@ -17,14 +17,18 @@ export function useAuth() {
   type DevAuthState = { authed: boolean; user: { username: string; name: string } | null };
   // Module-level singleton (attached to globalThis to preserve across HMR in dev)
   const globalKey = '__DEV_AUTH_SINGLETON__';
-  const singleton: { state: DevAuthState; setState: (s: DevAuthState) => void; listeners: (() => void)[] } =
+  const singleton: {
+    state: DevAuthState;
+    setState: (s: DevAuthState) => void;
+    listeners: (() => void)[];
+  } =
     // @ts-expect-error augment global
     (globalThis[globalKey] ||= {
       state: { authed: false, user: null },
       listeners: [],
       setState(next: DevAuthState) {
         this.state = next;
-  this.listeners.forEach((l: () => void) => l());
+        this.listeners.forEach((l: () => void) => l());
       },
     });
 

@@ -17,7 +17,7 @@ const brandRamp: BrandVariants = {
   130: '#a2d2ff',
   140: '#b9e4ff',
   150: '#d2efff',
-  160: '#e8f7ff'
+  160: '#e8f7ff',
 };
 
 export const appTheme = {

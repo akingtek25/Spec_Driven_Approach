@@ -15,12 +15,12 @@ describe('Login Page', () => {
         <Login />
       </MemoryRouter>
     );
-  expect(screen.getAllByText(/welcome back/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/welcome back/i).length).toBeGreaterThan(0);
     // No traditional form fields
     expect(screen.queryByLabelText(/email/i)).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/password/i)).not.toBeInTheDocument();
-  const msalBtn = screen.queryByRole('button', { name: /sign in with microsoft/i });
-  const bypassBtn = screen.queryByRole('button', { name: /enter \(bypass mode\)/i });
-  expect(msalBtn || bypassBtn).not.toBeNull();
+    const msalBtn = screen.queryByRole('button', { name: /sign in with microsoft/i });
+    const bypassBtn = screen.queryByRole('button', { name: /enter \(bypass mode\)/i });
+    expect(msalBtn || bypassBtn).not.toBeNull();
   });
 });

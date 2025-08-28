@@ -24,7 +24,8 @@ const useStyles = makeStyles({
 
 const Login = () => {
   const styles = useStyles();
-  const { login, loading, isAuthenticated, isBypass, devExpectedEmail, devExpectedPassword } = useAuth() as any;
+  const { login, loading, isAuthenticated, isBypass, devExpectedEmail, devExpectedPassword } =
+    useAuth() as any;
   const navigate = useNavigate();
 
   // Redirect any already-authenticated user away from login (avoid navigation during render)
@@ -76,8 +77,8 @@ const Login = () => {
         )}
         {isBypass && (
           <Caption1 color="brand">
-            Using bypass credentials. Set VITE_AUTH_BYPASS=false and restart dev server to use Microsoft
-            sign-in.
+            Using bypass credentials. Set VITE_AUTH_BYPASS=false and restart dev server to use
+            Microsoft sign-in.
           </Caption1>
         )}
       </div>

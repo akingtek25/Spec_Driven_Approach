@@ -10,7 +10,9 @@ const Home = () => {
   return (
     <div>
       <Title1>Welcome</Title1>
-      <p>This is a public page. {isAuthenticated ? 'You are signed in.' : 'You are not signed in.'}</p>
+      <p>
+        This is a public page. {isAuthenticated ? 'You are signed in.' : 'You are not signed in.'}
+      </p>
       {AUTH_BYPASS && (
         <Caption1 color="brand">
           Dev credential mode enabled. Use the Login page to authenticate with mock credentials.
